@@ -1,0 +1,46 @@
+html{
+    height: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(/assets/images/jef-willemyns-MPQReY77-Mk-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    background-color: rgba(192, 192, 192, 0.5);
+    margin-top: 30px;
+}
+
+div {
+    /* color: #dad7cd; */
+    color: black;
+    text-align: center;
+    height: 100%;
+    min-width: 50px;
+    max-width: 350px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+
+}
+
+button {
+    background-color: #6a994e;
+    color: white;
+    width: 60px;
+}
+
+#weatherFacts {
+    size: 10px;
+}

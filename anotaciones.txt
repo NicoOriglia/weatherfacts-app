@@ -1,0 +1,106 @@
+document.getElementById('searchButton').addEventListener('click' , searchMovies)
+
+let api_key = '32cdb3df2c34d39f5671646e3c86f762'
+let urlBase = 'https://api.themoviedb.org/3/search/movie'
+let urlImg = 'https://image.tmdb.org/t/p/w500'
+let resultContainer = document.getElementById('results')
+
+function searchMovies(){
+    resultContainer.innerHTML = 'Cargando...'
+    let searchInput = document.getElementById('searchInput').value
+
+    fetch(`${urlBase}?api_key=${api_key}&query=${searchInput}`)
+    .then(response => response.json())
+    .then(response => displayMovies(response.results))
+
+}
+
+function displayMovies(movies){
+
+    resultContainer.innerHTML = ''
+
+    if(movies.length === 0){
+        resultContainer.innerHTML='<p> No se encontraron resultados</p>'
+        return
+    }
+
+    movies.forEach(movie => {
+        let movieDiv = document.createElement('div')
+        movieDiv.classList.add('movie')
+    
+
+    let title = document.createElement('h2')
+    title.textContent = movie.title
+
+    let releaseDate = document.createElement('p')
+    releaseDate.textContent = 'La fecha de lanzamiento fue: ' + movie.release_date
+
+    let overview = document.createElement('p')
+    overview.textContent = movie.overview
+
+    let postePath = urlImg + movie.poster_path
+    let poster = document.createElement('img')
+
+    let vote = document.createElement('p')
+    vote.className = "vote"
+    vote.textContent = 'Calificación: '+ movie.vote_average.toFixed(1)
+
+
+    poster.src = postePath
+
+        movieDiv.appendChild(poster)
+        movieDiv.appendChild(title)
+        movieDiv.appendChild(releaseDate)
+        movieDiv.appendChild(overview)
+        movieDiv.appendChild(vote)
+
+        resultContainer.appendChild(movieDiv)
+
+    })
+
+}
+
+
+
+
+
+let api_key = 'cb3c589d197f200f7906a863b601b725'
+let urlBase = 'https://api.openweathermap.org/data/2.5/weather'
+let difKelvin = 273.15
+
+document.getElementById('buttonSearch').addEventListener('click', () => {
+    const city = document.getElementById('searchCity').value;
+    if (city) {
+        fetchWeatherFacts(city);
+    }
+});
+//https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+
+function fetchWeatherFacts(city) {
+    fetch(`${urlBase}?q=${city}&appid=${api_key}`)
+        .then(response => response.json())
+        .then(response => weatherFacts(response));
+}
+
+function weatherFacts(response){
+    
+    const divWeatherFacts = document.getElementById('weatherFacts')
+    divWeatherFacts.innerHTML=''
+
+    const nameCity = response.name
+    const temperature = response.main.temp
+    const description = response.weather[0].description
+
+    const cityTitle = document.createElement('h2')
+    cityTitle.textContent = nameCity
+
+    const temperatueInfo = document.createElement('p')
+    temperatueInfo.textContent = 'La temperatura es de: ' + temperature
+
+    const descriptionInfo = document.createElement('p')
+    descriptionInfo.textContent = description
+
+    divWeatherFacts.appendChild(cityTitle)
+    divWeatherFacts.appendChild(temperatueInfo)
+    divWeatherFacts.appendChild(descriptionInfo)
+}
